@@ -160,3 +160,8 @@
     min-height: 60vh;
   }
 }
+
+/* hide title field */
+.field--name-title {
+  display: none;
+}
