@@ -80,14 +80,13 @@ class SplitPane extends StylePluginBase {
    *
    */
   public function render() {
-    $rows = [];
 
-    $rows = $this->renderFields($this->view->result);
+    parent::render();
 
     return [
       '#theme' => $this->themeFunctions(),
       '#view' => $this->view,
-      '#rows' => $rows,
+      '#rows' => $this->rendered_fields,
       '#options' => $this->options,
       '#attached' => [
         'library' => ['views_split_pane/split_pane'],
