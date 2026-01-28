@@ -1,0 +1,10 @@
+split_pane:
+  css:
+    theme:
+      css/split-pane.css: {}
+  js:
+    js/split-pane.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/jquery

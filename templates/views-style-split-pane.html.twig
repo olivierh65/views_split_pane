@@ -1,0 +1,36 @@
+{{ dump()}}
+<div class="views-split-pane" data-view-id="{{ view.id }}">
+  <div class="views-split-pane__left">
+  <div class="views-split-pane__left-title">
+      {{ options.left_field_title }}
+    </div>
+    <div class="views-split-pane__left-content">
+    <ul>
+      {% for row in rows %}
+        <li>
+          <a href="#" class="split-pane-link" data-row-index="{{ loop.index0 }}">
+            {{ row[options.left_field] }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    </div>
+  </div>
+
+  <div class="views-split-pane__right">
+    <div class="views-split-pane__right-title">
+      {{ options.right_field_title }}
+    </div>
+    <div class="views-split-pane__right-content">
+    <div class="views-split-pane__empty">
+      {{ options.empty_message }}
+    </div>
+
+    {% for row in rows %}
+      <div class="views-split-pane__detail" data-row-index="{{ loop.index0 }}" hidden>
+        {{ row[options.right_field] }}
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+</div>
