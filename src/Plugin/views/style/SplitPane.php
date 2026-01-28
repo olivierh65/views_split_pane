@@ -82,11 +82,7 @@ class SplitPane extends StylePluginBase {
   public function render() {
     $rows = [];
 
-    foreach ($this->view->result as $index => $row) {
-      foreach ($this->view->field as $field_id => $field) {
-        $rows[$index][$field_id] = $field->advancedRender($row);
-      }
-    }
+    $rows = $this->renderFields($this->view->result);
 
     return [
       '#theme' => $this->themeFunctions(),
