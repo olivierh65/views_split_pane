@@ -30,6 +30,7 @@ class SplitPane extends StylePluginBase {
     $options['right_field'] = ['default' => ''];
     $options['right_field_title'] = ['default' => TRUE];
     $options['empty_message'] = ['default' => $this->t('Sélectionnez un élément.')];
+    $options['view_mode'] = ['default' => 'full'];
     return $options;
   }
 
@@ -69,6 +70,14 @@ class SplitPane extends StylePluginBase {
       '#default_value' => $this->options['right_field_title'],
     ];
 
+    $form['view_mode'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Mode de vue du Node pour la colonne droite'),
+    // Liste des view modes disponibles.
+      '#options' => $this->getNodeViewModes(),
+      '#default_value' => $this->options['view_mode'] ?? 'full',
+    ];
+
     $form['empty_message'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Message initial'),
@@ -83,15 +92,43 @@ class SplitPane extends StylePluginBase {
 
     parent::render();
 
+    $rows = [];
+
+    foreach ($this->view->result as $index => $result_row) {
+      $rows[$index] = [
+        'fields' => $this->rendered_fields[$index],
+      // Add nid for AJAX loading.
+        'nid' => $result_row->nid,
+      ];
+    }
+
     return [
       '#theme' => $this->themeFunctions(),
       '#view' => $this->view,
-      '#rows' => $this->rendered_fields,
+      '#rows' => $rows,
       '#options' => $this->options,
       '#attached' => [
         'library' => ['views_split_pane/split_pane'],
       ],
     ];
+  }
+
+  /**
+   *
+   */
+  protected function getNodeViewModes(): array {
+    /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $entity_display_repo */
+    $entity_display_repo = \Drupal::service('entity_display.repository');
+
+    // Retourne un tableau [machine_name => label].
+    $view_modes = $entity_display_repo->getViewModes('node');
+
+    $options = [];
+    foreach ($view_modes as $machine_name => $info) {
+      $options[$machine_name] = $info['label'];
+    }
+
+    return $options;
   }
 
 }

@@ -8,8 +8,10 @@
     <ul>
       {% for row in rows %}
         <li>
-          <a href="#" class="split-pane-link" data-row-index="{{ loop.index0 }}">
-            {{ row[options.left_field] }}
+          <a href="#" class="split-pane-link" data-row-index="{{ loop.index0 }}"
+            data-ajax-url="{{ path('views_split_pane.load', {node: row.nid}) }}"
+            data-view-mode="{{ options.view_mode }}">
+            {{ row.fields[options.left_field] }}
           </a>
         </li>
       {% endfor %}
@@ -21,14 +23,14 @@
     <div class="views-split-pane__right-title">
       {{ options.right_field_title }}
     </div>
-    <div class="views-split-pane__right-content">
+    <div id="split-pane-target"  class="views-split-pane__right-content">
     <div class="views-split-pane__empty">
       {{ options.empty_message }}
     </div>
 
     {% for row in rows %}
       <div class="views-split-pane__detail" data-row-index="{{ loop.index0 }}" hidden>
-        {{ row[options.right_field] }}
+        {{ row.fields[options.right_field] }}
       </div>
     {% endfor %}
     </div>

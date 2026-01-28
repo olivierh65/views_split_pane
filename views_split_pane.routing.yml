@@ -1,0 +1,9 @@
+views_split_pane.load:
+  path: '/views-split-pane/load/{node}'
+  defaults:
+    _controller: '\Drupal\views_split_pane\Controller\SplitPaneController::load'
+  requirements:
+    _permission: 'access content'
+    node: '\d+'
+  options:
+    _format: 'drupal_ajax'
