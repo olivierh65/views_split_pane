@@ -29,7 +29,7 @@ class SplitPane extends StylePluginBase {
     $options['left_field_title'] = ['default' => TRUE];
     $options['right_field'] = ['default' => ''];
     $options['right_field_title'] = ['default' => TRUE];
-    $options['empty_message'] = ['default' => $this->t('Sélectionnez un élément.')];
+    $options['empty_message'] = ['default' => $this->t('Sélectionnez un Compte Rendu.')];
     $options['view_mode'] = ['default' => 'full'];
     return $options;
   }
